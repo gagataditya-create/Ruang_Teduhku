@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Apple Chancery", "Chancery", "URW Chancery L", "Comic Sans MS", cursive, sans-serif;
+  --font-serif: "Apple Chancery", "Chancery", "URW Chancery L", "Comic Sans MS", cursive, Georgia, serif;
+  --font-mono: "Apple Chancery", "Chancery", "URW Chancery L", "Comic Sans MS", cursive, monospace;
+}
+
+/* Custom elegant scrollbar for confession cards and lists */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Global font override for all elements to Apple Chancery style */
+*, *::before, *::after, input, button, select, textarea, span, p, h1, h2, h3, h4, h5, h6, div {
+  font-family: "Apple Chancery", "Chancery", "URW Chancery L", "Comic Sans MS", cursive, sans-serif !important;
+}
