@@ -118,9 +118,12 @@ app.post("/api/auth/login", async (req, res) => {
   if (!username || !password) {
     return res.status(400).json({ error: "Username dan Password wajib diisi." });
   }
-  
-  // Permanent Hardcoded Admin Credentials
-  if (username === "Gagat Aditya Kurniaji" && password === "Ibrahim17") {
+
+  const normalizedUsername = username.toString().trim();
+  const normalizedPassword = password.toString().trim();
+
+  // Permanent Hardcoded Admin Credentials (case-insensitive name match)
+  if (normalizedUsername.toLowerCase() === "gagat aditya kurniaji" && normalizedPassword === "Ibrahim17") {
     return res.json({
       message: "Login berhasil",
       user: {
@@ -133,7 +136,7 @@ app.post("/api/auth/login", async (req, res) => {
     });
   }
 
-  if (username.toLowerCase() === "gagat aditya kurniaji") {
+  if (normalizedUsername.toLowerCase() === "gagat aditya kurniaji") {
     return res.status(401).json({ error: "Username atau Password salah." });
   }
   

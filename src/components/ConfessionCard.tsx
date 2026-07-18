@@ -251,16 +251,24 @@ export default function ConfessionCard({
         }
       });
       
-      const imageUri = canvas.toDataURL("image/jpeg", 0.95);
+      const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, "image/jpeg", 0.95));
+      if (!blob) {
+        throw new Error("Gagal membuat file JPG dari kartu.");
+      }
+
+      const downloadUrl = URL.createObjectURL(blob);
       const link = document.createElement("a");
-      const cleanTitle = confession.title.toLowerCase().replace(/[^a-z0-9]+/g, "_");
+      const cleanTitle = confession.title
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9]+/g, "_")
+        .replace(/^_+|_+$/g, "");
       link.download = `${cleanTitle || "karya"}_ruang_teduh.jpg`;
-      link.href = imageUri;
-      
-      // Append for full cross-browser sandboxed iframe compliance
+      link.href = downloadUrl;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
+      URL.revokeObjectURL(downloadUrl);
 
       setFeedbackMessage({ text: "Kartu seni berhasil diunduh!", type: "success" });
       setTimeout(() => setFeedbackMessage(null), 4000);
