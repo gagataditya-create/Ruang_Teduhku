@@ -1,0 +1,6 @@
+{
+  "name": "Ruang Teduh",
+  "description": "Aplikasi ruang teduh untuk mencurahkan isi hati (curhat) dalam berbagai bentuk karya seperti quotes, puisi, pantun, lirik lagu, dan kata bebas. Dilengkapi dengan sistem enkripsi pesan untuk menjaga privasi, pelacakan emosional, dan analisis suasana hati oleh guru BK (Admin).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
