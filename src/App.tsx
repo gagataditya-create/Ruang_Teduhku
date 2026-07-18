@@ -54,13 +54,21 @@ export default function App() {
         body: JSON.stringify({ username: adminUsername, password: adminPassword })
       });
 
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || "Akses ditolak.");
+      const rawResponse = await response.text();
+      let data: any = null;
+      try {
+        data = rawResponse ? JSON.parse(rawResponse) : null;
+      } catch {
+        data = null;
       }
 
-      if (data.user.role !== "ADMIN") {
-        throw new Error("Kredensial valid, namun akun ini bukan Pemandu Sanubari (Admin).");
+      if (!response.ok) {
+        const message = data?.error || rawResponse || "Akses ditolak.";
+        throw new Error(message);
+      }
+
+      if (!data || data.user?.role !== "ADMIN") {
+        throw new Error("Kredensial valid, namun akun ini bukan Pemandu Sanubari (Admin). Jika ini admin, pastikan backend /api/auth/login tersedia.");
       }
 
       // Save credentials for next time
